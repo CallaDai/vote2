@@ -1,0 +1,154 @@
+<style>
+.choice_unselected {
+	background-color: white;
+	width: 50px;
+	height: 50px;
+	margin: 5px;
+}
+
+.choice_selected {
+	background-color: red;
+	width: 50px;
+	height: 50px;
+	margin: 5px;
+	content: "S";
+}
+
+.submit {
+	width: 300px;
+	height: 64px;
+	background-color: gray
+}
+
+</style>
+
+
+<h1>{{ question.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% for choice in question.choice_set.all %}
+<div name="choice" style="float: left; width: 20%; background-color: blue; margin: 2%" >
+	<h1 name="title" style="text-align: center">{{ choice.choice_text }}</h1>
+	{% for i in "1234567890123456" %}
+		<div class="choice_unselected" style="float: left" value="{{choice.id}}"></div>
+	{% endfor %}
+</div>
+
+{% endfor %}
+
+<button class="submit" onclick="javascript:submit()">submit</button>
+
+<script>
+
+	var selecteds = [];
+
+window.onload = function () {
+	this.addListener();
+}
+
+function addListener() {
+	choices = document.getElementsByName("choice");
+	console.log(choices.length);
+
+	choices.forEach(choice=>{  
+		choice.addEventListener('touchstart', touchs, false);
+	});
+}
+
+function touchs(event) {
+	var touch;
+	
+	if (event.targetTouches.length >= 1) {
+		touch = event.targetTouches.item(0);
+	} else {
+		touch = event.touches.item(0);
+	}
+
+	target = touch.target;
+	
+	if (target.getAttribute("name") == "choice") {
+		return;
+	}
+
+	if (target.getAttribute("name") == "title") {
+		return;
+	}
+	
+	let value = target.getAttribute("value");
+	Array.prototype.remove = function(val) { 
+		var index = this.indexOf(val); 
+		if (index > -1) { 
+			this.splice(index, 1); 
+		} 
+	};
+
+	if (target.getAttribute("class") == "choice_unselected") {
+		target.className = "choice_selected";
+		selecteds.push(value);
+		// touch
+	} else {
+		target.className = "choice_unselected";
+		selecteds.remove(value);
+	}
+
+	console.log(selecteds);
+}
+
+
+function submit() {
+	var form = document.createElement('form');
+	form.action = "{% url 'polls:vote' question.id %}";
+	form.method = 'post';
+
+	var csrfField = document.createElement("input");
+	csrfField.type = 'hidden';
+	csrfField.name = 'csrfmiddlewaretoken';
+	csrfField.value = '{{ csrf_token }}';
+	form.appendChild(csrfField);
+
+	for (let i = 0; i < selecteds.length; i++) {
+		const select = selecteds[i];
+		console.log(select);
+		var input_s = document.createElement('input');
+		input_s.type = 'hidden';
+		input_s.name = 'choice';
+		input_s.value = select;
+		form.appendChild(input_s);  
+	}
+
+	document.body.append(form);
+	form.submit();
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- <h1>{{ question.question_text }}</h1>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+
+
+{% for choice in question.choice_set.all %}
+<div style="float: left; width: 20%; background-color: blue; margin: 2%" >
+	<h1 style="text-align: center">{{ choice.choice_text }}</h1>
+	{% for i in "1234567890123456" %}
+		<div style="float: left">
+			<input type="checkbox" style="zoom: 1.5; margin: 4"  name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
+		</div>
+	{% endfor %}
+</div>
+{% endfor %}
+
+<input type="submit" style="width: 80%;; margin-left: 10%" value="Show Results">
+</form> -->
+
