@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rehau AG - Cultural Barometer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).click(function(){
+            var elem = $('html')[0];
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+        })
+    </script>
+</head>
+
+<body>
+<div class="container center">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="rehau_logo_transparent.png">
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col">
+            <div class="head-top center"></div>
+        </div>
+        <div class="col">
+            <div class="head-top center">Innovation</div>
+        </div>
+        <div class="col">
+            <div class="head-top center">Trust</div>
+        </div>
+        <div class="col">
+            <div class="head-top center">Reliability</div>
+        </div>
+    </div>
+    <div class="row mb-4 row-top">
+        <div class="col">
+            <div class="head-left center">High</div>
+        </div>
+        <div class="col col-left">
+            <div class="content content-left ripple"><span class="counter center">0</span></div>
+        </div>
+        <div class="col col-middle">
+            <div class="content content-middle ripple"><span class="counter center">0</span></div>
+        </div>
+        <div class="col col-right">
+            <div class="content content-right ripple"><span class="counter center">0</span></div>
+        </div>
+    </div>
+    <div class="row mb-4 row-middle">
+        <div class="col">
+            <div class="head-left center">Medium</div>
+        </div>
+        <div class="col col-left">
+            <div class="content content-left ripple"><span class="counter center">0</span></div>
+        </div>
+        <div class="col col-middle">
+            <div class="content content-middle ripple"><span class="counter center">0</span></div>
+        </div>
+        <div class="col col-right">
+            <div class="content content-right ripple"><span class="counter center">0</span></div>
+        </div>
+    </div>
+    <div class="row mb-4 row-bottom">
+        <div class="col">
+            <div class="head-left center">Low</div>
+        </div>
+        <div class="col col-left">
+            <div class="content content-left ripple"><span class="counter center">0</span></div>
+        </div>
+        <div class="col col-middle">
+            <div class="content content-middle ripple"><span class="counter center">0</span></div>
+        </div>
+        <div class="col col-right">
+            <div class="content content-right ripple"><span class="counter center">0</span></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col align-self-end col-sm-1 offset-md-3">
+            <button id="resetBtn" class="btn btn-dark">Reset Counters</button>
+        </div>
+        <div class="col align-self-end col-sm-1 offset-md-7">
+            <button id="showBtn" class="btn btn-dark">Hide Results</button>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
